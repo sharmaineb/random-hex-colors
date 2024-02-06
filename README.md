@@ -1,71 +1,95 @@
-# Getting Started with Create React App
+# Color Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I found this challenge on Client.dev they provide interview-type questions for front-end developers. 
 
-## Available Scripts
+## Challenge
 
-In the project directory, you can run:
+Your goal is to display three random color swatches as 100px by 100px squares. Below you will show the hex color of one of these swatches. When a swatch is clicked display a message "correct" if the color of the swatch matches the hex color displayed, or incorrect if it does not match. Lastly, add a button to reset/play the game again. 
 
-### `npm start`
+![Color Challenge](color-challenge.gif)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can't see the cursor in this gif. Imagine that I'm clicking one of the color switches then the text "correct" or "incorrect is displayed. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Discussion 
 
-### `npm test`
+- How do you generate a hex color? 
+- How to apply the color to a component? 
+- How many state variables do you need? 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Planning and strategy
 
-### `npm run build`
+To solve this problem you need a plan. You don't have to see a path to a complete solution from the begging. Some answers will come to you as you solve others. Choosing what solves first will you move forward.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Here is a suggested path. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Create the interface
+2. Generate the random colors
+3. Handle the interaction and logic
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Try to stay focussed on each step without being distracted by the others until that step is complete. 
 
-### `npm run eject`
+Break each of the steps above into smaller pieces and solve them. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Create the interface
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Your goal is to display **three random color swatches as 100px by 100px squares**. Below you will **show the hex color** of one of these swatches. When a swatch is clicked **display a message "correct"** if the color of the swatch matches the hex color displayed, or incorrect if it does not match. Last **add a button to reset/play** the game again. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Create the react application
+2. Create three 100px by 100px. (Pro tip: Put a border or background color on these so you can see them)
+3. Arrange the squares in a row
+4. Show the hex color, us a placeholder for the random value for now. 
+5. Add the text "correct/incorrect" as a placeholder. 
+6. Add the "reset/play" button. 
+7. Arrange everything in a column. 
+8. Stretch goal put it all in the center of the page. 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+All of these things rely on basic React, HTML, and CSS skills. If you're doing something else at this stage you're getting distracted and off-topic! 
 
-## Learn More
+### Generate Random Colors
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> Your goal is to display **three random color** swatches as 100px by 100px squares. Below you will show the **hex color** of one of these swatches. When a swatch is clicked display a message "correct" if the color of the swatch matches the hex color displayed, or incorrect if it does not match. Lastly, add a button to reset/play the game again. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Understand what a color is and then formulate how to generate that. The problem asks for a hex color. Hex colors look like this: `#AABBCC`. Without the # you have three numbers: `AA`, `BB`, `CC`. These are base 16 and have a range of 0 - 255. That means you need to start with a random number between 0 and 255 and then convert it to base 16. 
 
-### Code Splitting
+Clue: Look up `Number.toString()` and pay attention to the "radix".
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Write a function that generates a random integer. Bonus: Write your function to take the max number as an argument and return a random number from 0 to the max value. 
+2. Write another function that generates a random color by calling the first function three times. Combine the three numbers starting with # to create a hex color string. 
+3. Generate three random colors in your React component using state. 
+4. Set the background-color of each of the color swatches using the randomly generated colors. You can set CSS properties by using the `style` attribute. Look up: React inline styles. 
+5. Test and debug
+	- Console log your random numbers
+	- Console log your random colors
+	- Console log the style object used for the color swatches
+	- Inspect elements in the browser and look for the styles you applied
 
-### Analyzing the Bundle Size
+### Handle the interaction and logic
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+> Your goal is to display three random color swatches as 100px by 100px squares. Below you will **show the hex color of one of these swatches**. **When a swatch is clicked display a message "correct" if the color of the swatch matches the hex color displayed, or incorrect if it does not match**. Lastly, add a button to **reset/play the game again**.
 
-### Making a Progressive Web App
+Identify what you can interact with. Looks like you can click each of the three swatches and the button. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+You need to be able to identify one of the swatches as the "correct" color. Decide how you will do that. 
 
-### Advanced Configuration
+1. Add an `onClick` to each of the swatches. Use a console.log to log the color of that swatch. 
+2. Decide how you will determine which of the three random colors is correct. Store that "answer" in state. 
+3. Display the correct random color. 
+4. Update the `onClick` functions in swatches to determine if the answer is correct or not. You might need to use a new state variable for this. 
+5. Display the text "correct" or "incorrect" after the answer is set using some conditional rendering. You might think about state for this as three values: no answer, correct, and incorrect.
+6. The last step is to reset the game. To do this you need to:
+	- Choose three random colors
+	- Choose which of the three colors is correct
+	- Set the answer to its neutral no answer state
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Stretch Goals 
 
-### Deployment
+Try these stretch goals: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Add a hover state to the swatches and a cursor pointer
+- When the answer is incorrect high light the correct swatch in some way
+- After an answer is chosen show the hex color in each color swatch
+- Add a countdown before showing the swatches
 
-### `npm run build` fails to minify
+## Conclusion 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# random-hex-colors
+Good luck with this challenge! Do your best and complete as much of the challenge as you can. 
